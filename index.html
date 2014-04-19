@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WordsJS</title>
+<link href='src/styles.css' rel='stylesheet'>
+<script src='lib/jquery-1.11.0.min.js'></script>
+<script src='src/wordtree.js'></script>
+<script src='src/lang/words_testing.js'></script>
+<script>
+
+  var words = new PrefixTree();
+  words.addList(wordList);
+
+  $(document).ready(function(){
+    $('.enter').on('click', function(){
+      var word = $('.word').val();
+      var result = words.allWordsBelow(word);
+      $('textarea').val(result);
+    })
+  });
+
+</script>
+</head>
+
+<body>
+<h1>WordsJS</h1>
+<input class='word' type='text'></input>
+<button class='enter'>Enter</button>
+<br>
+<textarea style="width: 300px; height: 300px;"></textarea>
+</body>
+
+</html>

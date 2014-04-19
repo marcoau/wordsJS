@@ -77,7 +77,8 @@ var PrefixTree = function(word){
     return words;
   };
 
-  this._getNode = function(word){
+  //closure functions below
+  var _getNode = function(word){
     var search = function(word, tree){
       for(var i = 0; i < tree.children.length; i++){
         if(tree.children[i].value === word){
@@ -100,27 +101,3 @@ var PrefixTree = function(word){
 };
 
 //naked declaration of new PrefixTrees must take no argument.
-var english = new PrefixTree();
-
-var miniDict = [
-"design",
-"designer",
-"designer_drug",
-"designing",
-"design_criteria",
-"desirability",
-"desirable",
-"desirableness",
-"desire",
-"desired",
-"desire_to_know",
-"desirous",
-"desist",
-"desk",
-"desk-bound",
-"deskbound",
-"deskman",
-"desktop"
-];
-
-english.addList(miniDict);
