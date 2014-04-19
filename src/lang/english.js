@@ -1,4 +1,4 @@
-var english = ["\'hood",
+var wordList = ["\'hood",
 "\'s_Gravenhage",
 "\'tween",
 "\'tween_decks",

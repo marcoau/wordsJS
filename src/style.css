@@ -33,10 +33,27 @@ section{
   background-color: white;
 
   width: 400px;
-  height: 450px;
+  height: 460px;
   border-radius: 5px;
   padding: 5px;
   margin: 10px;
+}
+
+section .title{
+  position: absolute;
+  text-align: left;
+  margin: 5px 10px;
+  top: 5px;
+  left: 18px;
+  font-size: 20px;
+}
+
+section .functionalities {
+  position: absolute;
+  top: 70px;
+  left: 18px;
+  
+  
 }
 
 input {
@@ -55,13 +72,13 @@ button {
   border-radius: 2px;
   margin: 10px;
 
-  font-size: 20px;
+  font-size: 18px;
 }
 
 textarea{
   position: absolute;
   left: 25px;
-  bottom: 25px;
+  top: 145px;
   width: 350px;
   height: 300px;
 
@@ -87,7 +104,10 @@ h1 {
   color: rgb(175,238,238);
 }
 
-section h2{
-  text-align: left;
-  margin: 5px 10px;
+h2 {
+  margin: 0px;
+}
+
+p {
+  margin: 0px;
 }

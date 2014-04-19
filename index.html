@@ -5,7 +5,7 @@
 <link href='src/style.css' rel='stylesheet'>
 <script src='lib/jquery-1.11.0.min.js'></script>
 <script src='src/wordtree.js'></script>
-<script src='src/lang/words_testing.js'></script>
+<script src='src/lang/english.js'></script>
 <script>
 
   var words = new PrefixTree();
@@ -33,12 +33,14 @@
       //test case for newlining function.
       //var result = 'hfkw, sdfks, saef wae, wefwrwerf w, adssfskfkfs, dsfwerwaw fsfaefewkfwfewf, wewreeoo';
       $('textarea.scrabble').val(result);
+      $('input.scrabble').val('');
     });
-
     $('button.autofill').on('click', function(){
       var word = $('input.autofill').val();
-      var result = words.allWordsBelow(word);
-      $('textarea.autofill').val(result);
+      var result = newlining(words.allWordsBelow(word).join(', '), 45);
+      var warning = '<!--Still in contruction--!>'
+      $('textarea.autofill').val(warning);
+      $('input.scrabble').val('');
     });
 
     $('input.scrabble').on('keypress', function(event){
@@ -63,19 +65,28 @@
   <main class='functions'>
 
     <section class='scrabble'>
-      <h2>Cheat in Scrabble!</h2>
-      <input class='scrabble' type='text'></input>
-      <button class='scrabble'>Enter</button>
-      <br>
-      <textarea class='scrabble'></textarea>
+      <div class='title'>
+        <h2>Anagram Search</h2>
+        <p>(Cheat in Scrabble!)
+      </div>
+      <div class='functionalities'>
+        <input class='scrabble' type='text'></input>
+        <button class='scrabble'>Enter</button>
+        <br>
+      </div>
+        <textarea class='scrabble'></textarea>
     </section>
     
     <section class='autofill'>
-      <h2>Autofill</h2>
-      <input class='autofill' type='text'></input>
-      <button class='autofill'>Enter</button>
-      <br>
-      <textarea class='autofill'></textarea>
+      <div class='title'>
+        <h2>Autofill</h2>
+      </div>
+      <div class='functionalities'>
+        <input class='autofill' type='text'></input>
+        <button class='autofill'>Enter</button>
+        <br>
+      </div>
+        <textarea class='autofill'></textarea>
     </section>
 
   </main>
