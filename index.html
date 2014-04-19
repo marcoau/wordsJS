@@ -5,7 +5,8 @@
 <link href='src/style.css' rel='stylesheet'>
 <script src='lib/jquery-1.11.0.min.js'></script>
 <script src='src/wordtree.js'></script>
-<script src='src/lang/english.js'></script>
+<!--<script src='src/lang/english.js'></script>-->
+<script src='src/lang/words_testing.js'></script>
 <script>
 
   var words = new PrefixTree();
@@ -23,9 +24,17 @@
     $('button.autofill').on('click', function(){
       var word = $('input.autofill').val();
       var result = autoFill(word, word.length + 3, words).join(', ');
+      console.log(result);
       var warning = '<!--Still in contruction--!>'
       $('textarea.autofill').val(result);
       $('input.scrabble').val('');
+    });*/
+    $('button.autofill').on('click', function(){
+      var word = $('input.autofill').val();
+      var fillWords = autoFill(word, word.length + 3, words);
+      for(var i = 0; i < fillWords.length; i++){
+        $('.dropdown').append('<li>' + fillWords[i] + '</li>')
+      }
     });
 
     $('input.scrabble').on('keypress', function(event){
@@ -58,7 +67,7 @@
         <button class='scrabble'>Enter</button>
         <br>
       </div>
-        <textarea class='scrabble'></textarea>
+      <textarea class='scrabble'></textarea>
     </section>
     
     <section class='autofill'>
@@ -70,7 +79,11 @@
         <button class='autofill'>Enter</button>
         <br>
       </div>
-        <textarea class='autofill'></textarea>
+      <textarea class='autofill'></textarea>
+      <ul class='dropdown'>
+        <li>Hello!</li>
+        <li>Heyyo!</li>
+      </ul>
     </section>
 
   </main>

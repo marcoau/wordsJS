@@ -156,3 +156,11 @@ var autoFill = function(word, maxLength, tree){
   getWords(word, maxLength, tree, nextWords);
   return nextWords;
 };
+
+
+//'root'
+
+//''
+//'r' - children of '';
+// 'ro' - children of 'r' node;
+// 'root'

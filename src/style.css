@@ -30,6 +30,7 @@ header {
 section{
   position: relative;
   display: inline-block;
+  overflow: hidden;
   background-color: white;
 
   width: 400px;
@@ -52,8 +53,6 @@ section .functionalities {
   position: absolute;
   top: 70px;
   left: 18px;
-  
-  
 }
 
 input {
@@ -64,6 +63,33 @@ input {
 
   font-size: 18px;
   text-indent: 10px;
+}
+
+.dropdown {
+  list-style-type: none;
+  background-color: yellow; 
+  position: absolute;
+  z-index: 1;
+  left: 28px;
+  top: 130px;
+
+  width: 180px;
+  border: 1px solid black;
+
+  margin: 0px;
+  padding: 0px;
+
+}
+.dropdown li {
+  width: 180px;
+  height: 30px;
+  margin: 0px auto 0px auto;
+  padding: 0px;
+  border: 1px solid gray;
+
+  vertical-align: middle;
+  text-align: left;
+  font-size: 18pt;
 }
 
 button {
