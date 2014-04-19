@@ -64,10 +64,11 @@ var PrefixTree = function(word){
     var node = this._getNode(word);
     var words = [];
     var AddAllWords = function(node, arr){
-      if(node.isWord){
-        arr.push(node.value);
-      }
-      if(node.children.length > 0){
+      if(node !== undefined){
+        //undefined is the result for nod e in ._getNode if no such node
+        if(node.isWord){
+          arr.push(node.value);
+        }
         for(var i = 0; i < node.children.length; i++){
           AddAllWords(node.children[i], arr);
         }
@@ -78,7 +79,7 @@ var PrefixTree = function(word){
   };
 
   //closure functions below
-  var _getNode = function(word){
+  this._getNode = function(word){
     var search = function(word, tree){
       for(var i = 0; i < tree.children.length; i++){
         if(tree.children[i].value === word){
@@ -94,7 +95,7 @@ var PrefixTree = function(word){
     var tree = this;
     for(var j = 0; j < word.length; j++){
       tree = tree.children[search(word.slice(0,j+1), tree)];
-      if(!tree){return false;}
+      if(!tree){return undefined;}
     }
     return tree;
   };
