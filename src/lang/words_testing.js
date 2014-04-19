@@ -1,0 +1,20 @@
+var wordList = [
+"design",
+"designer",
+"designer_drug",
+"designing",
+"design_criteria",
+"desirability",
+"desirable",
+"desirableness",
+"desire",
+"desired",
+"desire_to_know",
+"desirous",
+"desist",
+"desk",
+"desk-bound",
+"deskbound",
+"deskman",
+"desktop"
+];
