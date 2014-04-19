@@ -1,0 +1,92 @@
+/*Format of blocks*/
+*{
+
+  font-family: Georgia, serif;
+}
+header {
+  position: relative;
+  margin: 3px auto 3px auto;
+  
+  background-color: black;
+
+  width: 880px;
+  border-radius: 10px 10px 0 0;
+  padding: 10px;
+}
+
+.functions{
+  position: relative;
+  margin: 3px auto 3px auto;
+
+  background-color: rgb(175,238,238);
+
+  width: 890px;
+  border-radius: 0 0 10px 10px;
+  padding: 5px;
+
+  text-align: center;
+}
+
+section{
+  position: relative;
+  display: inline-block;
+  background-color: white;
+
+  width: 400px;
+  height: 450px;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 10px;
+}
+
+input {
+  width: 230px;
+  height: 50px;
+  padding: 0px;
+  margin: 10px;
+
+  font-size: 18px;
+  text-indent: 10px;
+}
+
+button {
+  width: 100px;
+  height: 50px;
+  border-radius: 2px;
+  margin: 10px;
+
+  font-size: 20px;
+}
+
+textarea{
+  position: absolute;
+  left: 25px;
+  bottom: 25px;
+  width: 350px;
+  height: 300px;
+
+  font-size: 18px;
+}
+
+/*Format of text*/
+
+h1 {
+  text-align: center;
+  color: white;
+
+  font-size: 60px;
+  margin: 5px 5px;
+}
+
+.signature {
+  position: absolute;
+  right: 20px;
+  bottom: 13px;
+
+  color: rgb(175,238,238);
+}
+
+section h2{
+  text-align: left;
+  margin: 5px 10px;
+}

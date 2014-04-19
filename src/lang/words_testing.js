@@ -16,5 +16,6 @@ var wordList = [
 "desk-bound",
 "deskbound",
 "deskman",
-"desktop"
+"desktop",
+"kdes"
 ];

@@ -26,7 +26,7 @@ var PrefixTree = function(word){
     //
     var tree = this;
     for(var j = 0; j < word.length; j++){
-      var tree = tree.children[add(word.slice(0,j+1), tree)];
+      tree = tree.children[add(word.slice(0,j+1), tree)];
       if(j === word.length - 1){
         tree.isWord = true;
       }
@@ -43,10 +43,7 @@ var PrefixTree = function(word){
     var search = function(word, tree){
       for(var i = 0; i < tree.children.length; i++){
         if(tree.children[i].value === word){
-          console.log('our target: ' + word + ', is equal to ' + tree.children[i].value);
           return i;
-        }else{
-          console.log('our target: ' + word + ', is not found in ' + tree.children[i].value);
         }
       }
       return false;
@@ -83,10 +80,7 @@ var PrefixTree = function(word){
     var search = function(word, tree){
       for(var i = 0; i < tree.children.length; i++){
         if(tree.children[i].value === word){
-          console.log('our target: ' + word + ', is equal to ' + tree.children[i].value);
           return i;
-        }else{
-          console.log('our target: ' + word + ', is not found in ' + tree.children[i].value);
         }
       }
       return false;
@@ -101,4 +95,46 @@ var PrefixTree = function(word){
   };
 };
 
-//naked declaration of new PrefixTrees must take no argument.
+var scrabbleSolution = function(word, tree){
+  var goodWords = [];
+  var factorial = function(num){
+    var result = 1;
+    for(var i = 1; i <= num; i++){
+      result *= i;
+    }
+    return result;
+  };
+  var permut = function(word){
+    var chArray = word.split('');
+    var orders = [];
+    var results = [];
+    for(var i = 0; i < factorial(word.length); i++){
+      var order = [];
+      var remainder = i;
+      for(var j = word.length - 1; j > 0; j--){
+        var fac = factorial(j);
+        order.push(Math.floor(remainder / fac));
+        remainder = remainder % fac;
+      }
+      order.push(0);
+      orders.push(order);
+    }
+    for(var k = 0; k < orders.length; k++){
+      var chars = chArray.slice();
+      var result = [];
+      for(var l = 0; l < orders[k].length; l++){
+        result.push(chars.splice(orders[k][l], 1));
+      }
+      results.push(result.join(''));
+    }
+    return results;
+  };
+
+  var anagrams = permut(word);
+  for(var i = 0; i < anagrams.length; i++){
+    if(tree.hasWord(anagrams[i])){
+      goodWords.push(anagrams[i]);
+    }
+  }
+  return goodWords;
+};

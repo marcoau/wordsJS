@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>WordsJS</title>
-<link href='src/styles.css' rel='stylesheet'>
+<link href='src/style.css' rel='stylesheet'>
 <script src='lib/jquery-1.11.0.min.js'></script>
 <script src='src/wordtree.js'></script>
 <script src='src/lang/words_testing.js'></script>
@@ -12,22 +12,49 @@
   words.addList(wordList);
 
   $(document).ready(function(){
-    $('.enter').on('click', function(){
-      var word = $('.word').val();
+
+    $('button.scrabble').on('click', function(){
+      var word = $('input.scrabble').val();
+      console.log(word);
+      var result = scrabbleSolution(word, words);
+      $('textarea.scrabble').val(result);
+    });
+    $('button.autofill').on('click', function(){
+      var word = $('input.autofill').val();
       var result = words.allWordsBelow(word);
-      $('textarea').val(result);
-    })
+      $('textarea.autofill').val(result);
+    }); 
   });
 
 </script>
 </head>
 
 <body>
-<h1>WordsJS</h1>
-<input class='word' type='text'></input>
-<button class='enter'>Enter</button>
-<br>
-<textarea style="width: 300px; height: 300px;"></textarea>
+  <header>
+    <h1>WordsJS</h1>
+    <div class='signature'>@marc0au</div>
+  </header>
+  <main class='functions'>
+
+    <section class='scrabble'>
+      <h2>Cheat in Scrabble!</h2>
+      <input class='scrabble' type='text'></input>
+      <button class='scrabble'>Enter</button>
+      <br>
+      <textarea class='scrabble'></textarea>
+    </section>
+    
+    <section class='autofill'>
+      <h2>Autofill</h2>
+      <input class='autofill' type='text'></input>
+      <button class='autofill'>Enter</button>
+      <br>
+      <textarea class='autofill'></textarea>
+    </section>
+
+  </main>
+
+
 </body>
 
 </html>
