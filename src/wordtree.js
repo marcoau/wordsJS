@@ -104,7 +104,7 @@ var scrabbleSolution = function(word, tree){
     }
     return result;
   };
-  var permut = function(word){
+  var allLengthCombos = function(word){
     var chArray = word.split('');
     var orders = [];
     var results = [];
@@ -117,7 +117,10 @@ var scrabbleSolution = function(word, tree){
         remainder = remainder % fac;
       }
       order.push(0);
-      orders.push(order);
+      //all lengths included, but slow
+      for(var z = 0; z < order.length; z++){
+        orders.push(order.slice(0, z+1));
+      }
     }
     for(var k = 0; k < orders.length; k++){
       var chars = chArray.slice();
@@ -133,7 +136,7 @@ var scrabbleSolution = function(word, tree){
     return results;
   };
 
-  var anagrams = permut(word);
+  var anagrams = allLengthCombos(word);
   for(var i = 0; i < anagrams.length; i++){
     if(tree.hasWord(anagrams[i])){
       goodWords.push(anagrams[i]);
