@@ -13,19 +13,45 @@
 
   $(document).ready(function(){
 
+    var newlining = function(str, lineLength){
+      var newlineCount = 0;
+      for (var i = 1; i < str.length / 45; i++){
+        var pos = 0;
+        while(str[i * 45 + newlineCount - pos] !== ','){
+          pos++;
+        }
+        str = str.slice(0, i * 45 + newlineCount - pos + 2) + '\n' + str.slice(
+          i * 50 + newlineCount - pos + 2);
+      }
+      return str;
+    };
+
     $('button.scrabble').on('click', function(){
       var word = $('input.scrabble').val();
       console.log(word);
-      var result = scrabbleSolution(word, words);
+      var result = newlining(scrabbleSolution(word, words).join(', '), 45);
+      //test case for newlining function.
+      //var result = 'hfkw, sdfks, saef wae, wefwrwerf w, adssfskfkfs, dsfwerwaw fsfaefewkfwfewf, wewreeoo';
       $('textarea.scrabble').val(result);
     });
+
     $('button.autofill').on('click', function(){
       var word = $('input.autofill').val();
       var result = words.allWordsBelow(word);
       $('textarea.autofill').val(result);
-    }); 
-  });
+    });
 
+    $('input.scrabble').on('keypress', function(event){
+      if(event.keyCode === 13){
+        $('button.scrabble').trigger('click');
+      }
+    });
+    $('input.autofill').on('keypress', function(event){
+      if(event.keyCode === 13){
+        $('button.autofill').trigger('click');
+      }
+    });
+  });
 </script>
 </head>
 
