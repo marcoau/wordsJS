@@ -13,37 +13,16 @@
 
   $(document).ready(function(){
 
-    var newlining = function(str, lineLength){
-      var newlineCount = 0;
-      for (var i = 1; i < str.length / lineLength - 1; i++){
-        var pos = 0;
-        while(str[i * lineLength + newlineCount - pos] !== ','){
-          pos++;
-        }
-        str = str.slice(0, i * lineLength + newlineCount - pos + 2) + '\n' + str.slice(
-          i * lineLength + newlineCount - pos + 2);
-        newlineCount++;
-      }
-      return str;
-    };
-
     $('button.scrabble').on('click', function(){
       var word = $('input.scrabble').val();
-      console.log(word);
-      // var result = newlining(scrabbleSolution(word, words).join(', '), 45);
-      var res = scrabbleTree(word, words).join(', ');
-      console.log(res);
-      var result = newlining(res, 25);
-
-      //test case for newlining function.
-      //var result = 'hfkw, sdfks, saef wae, wefwrwerf w, adssfskfkfs, dsfwerwaw fsfaefewkfwfewf, wewreeoo';
+      var result = scrabbleTree(word, words).join(', ');
       $('textarea.scrabble').val(result);
       console.log(result);
       $('input.scrabble').val('');
     });
     $('button.autofill').on('click', function(){
       var word = $('input.autofill').val();
-      var result = newlining(words.allWordsBelow(word).join(', '), 45);
+      var result = words.allWordsBelow(word).join(', ');
       var warning = '<!--Still in contruction--!>'
       $('textarea.autofill').val(warning);
       $('input.scrabble').val('');

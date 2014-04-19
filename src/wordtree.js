@@ -119,7 +119,7 @@ var scrabbleTree = function(word, tree){
   var chArray = word.split('');
   var checkTree = function(word, arr, tree){
     count++;
-    console.log('checking the word: ' + word);
+    //console.log('checking the word: ' + word);
     if(tree.hasNode(word)){
       if(tree.hasWord(word) && goodWords.indexOf(word) === -1){
         goodWords.push(word);
@@ -135,54 +135,3 @@ var scrabbleTree = function(word, tree){
   console.log(count);
   return goodWords;
 };
-
-/*
-var scrabbleSolution = function(word, tree){
-  var goodWords = [];
-  var factorial = function(num){
-    var result = 1;
-    for(var i = 1; i <= num; i++){
-      result *= i;
-    }
-    return result;
-  };
-  var allLengthCombos = function(word){
-    var chArray = word.split('');
-    var orders = [];
-    var results = [];
-    for(var i = 0; i < factorial(word.length); i++){
-      var order = [];
-      var remainder = i;
-      for(var j = word.length - 1; j > 0; j--){
-        var fac = factorial(j);
-        order.push(Math.floor(remainder / fac));
-        remainder = remainder % fac;
-      }
-      order.push(0);
-      //all lengths included, but slow
-      for(var z = 0; z < order.length; z++){
-        orders.push(order.slice(0, z+1));
-      }
-    }
-    for(var k = 0; k < orders.length; k++){
-      var chars = chArray.slice();
-      var result = [];
-      for(var l = 0; l < orders[k].length; l++){
-        result.push(chars.splice(orders[k][l], 1));
-      }
-      result = result.join('');
-      if(results.indexOf(result) === -1){
-        results.push(result);
-      }
-    }
-    return results;
-  };
-
-  var anagrams = allLengthCombos(word);
-  for(var i = 0; i < anagrams.length; i++){
-    if(tree.hasWord(anagrams[i])){
-      goodWords.push(anagrams[i]);
-    }
-  }
-  return goodWords;
-};*/
