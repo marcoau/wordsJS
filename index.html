@@ -22,9 +22,9 @@
     });
     $('button.autofill').on('click', function(){
       var word = $('input.autofill').val();
-      var result = words.allWordsBelow(word).join(', ');
+      var result = autoFill(word, word.length + 3, words).join(', ');
       var warning = '<!--Still in contruction--!>'
-      $('textarea.autofill').val(warning);
+      $('textarea.autofill').val(result);
       $('input.scrabble').val('');
     });
 

@@ -75,7 +75,7 @@ var PrefixTree = function(word){
     return true;
   };
 
-  this.allWordsBelow = function(word, levels){
+  this.allWordsBelow = function(word){
     var node = this._getNode(word);
     var words = [];
     var AddAllWords = function(node, arr){
@@ -117,12 +117,12 @@ var scrabbleTree = function(word, tree){
   var goodWords = [];
   var count = 0;
   var chArray = word.split('');
-  var checkTree = function(word, arr, tree){
+  var checkTree = function(word, arr, tree, container){
     count++;
     //console.log('checking the word: ' + word);
     if(tree.hasNode(word)){
-      if(tree.hasWord(word) && goodWords.indexOf(word) === -1){
-        goodWords.push(word);
+      if(tree.hasWord(word) && container.indexOf(word) === -1){
+        container.push(word);
       }
       for(var i = 0; i < arr.length; i++){
         var newArr = arr.slice();
@@ -131,7 +131,28 @@ var scrabbleTree = function(word, tree){
       }
     }
   };
-  checkTree('', chArray, tree);
+  checkTree('', chArray, tree, goodWords);
   console.log(count);
   return goodWords;
+};
+
+var autoFill = function(word, maxLength, tree){
+  var nextWords = [];
+  var getWords = function(word, maxLength, tree, container){
+    if(word.length < maxLength){
+      var node = tree._getNode(word);
+      if(node !== 'no node'){
+        for(var i = 0; i < node.children.length; i++){
+          var wordTree = node.children[i];
+          console.log(wordTree);
+          if(wordTree.isWord){
+            nextWords.push(wordTree.value);
+          }
+          getWords(wordTree.value, maxLength, tree, container);
+        }
+      }
+    }
+  };
+  getWords(word, maxLength, tree, nextWords);
+  return nextWords;
 };
