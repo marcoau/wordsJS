@@ -15,7 +15,7 @@
 
     var newlining = function(str, lineLength){
       var newlineCount = 0;
-      for (var i = 1; i < str.length / lineLength; i++){
+      for (var i = 1; i < str.length / lineLength - 1; i++){
         var pos = 0;
         while(str[i * lineLength + newlineCount - pos] !== ','){
           pos++;
@@ -31,9 +31,9 @@
       var word = $('input.scrabble').val();
       console.log(word);
       // var result = newlining(scrabbleSolution(word, words).join(', '), 45);
-      var res = scrabbleSolution(word, words).join(', ');
+      var res = scrabbleTree(word, words).join(', ');
       console.log(res);
-      var result = newlining(res, 45);
+      var result = newlining(res, 25);
 
       //test case for newlining function.
       //var result = 'hfkw, sdfks, saef wae, wefwrwerf w, adssfskfkfs, dsfwerwaw fsfaefewkfwfewf, wewreeoo';
