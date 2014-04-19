@@ -125,7 +125,10 @@ var scrabbleSolution = function(word, tree){
       for(var l = 0; l < orders[k].length; l++){
         result.push(chars.splice(orders[k][l], 1));
       }
-      results.push(result.join(''));
+      result = result.join('');
+      if(results.indexOf(result) === -1){
+        results.push(result);
+      }
     }
     return results;
   };
