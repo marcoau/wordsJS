@@ -9,7 +9,7 @@
 <script src='src/lang/words_testing.js'></script>
 <script>
 
-  var words = new PrefixTree();
+  var words = new Trie();
   words.addList(wordList);
 
   $(document).ready(function(){
@@ -74,6 +74,7 @@
     <section class='scrabble'>
       <div class='title'>
         <h2>Cheat in Scrabble!</h2>
+        <p>(with Autofill)</p>
       </div>
       <div class='functionalities'>
         <input class='scrabble' type='text'></input>
