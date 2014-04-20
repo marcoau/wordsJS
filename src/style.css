@@ -6,7 +6,7 @@
 header {
   position: relative;
   margin: 3px auto 3px auto;
-  
+
   background-color: black;
 
   width: 880px;
@@ -67,29 +67,39 @@ input {
 
 .dropdown {
   list-style-type: none;
-  background-color: yellow; 
   position: absolute;
   z-index: 1;
   left: 28px;
   top: 130px;
 
   width: 180px;
-  border: 1px solid black;
 
   margin: 0px;
   padding: 0px;
 
 }
 .dropdown li {
+  position: relative;
   width: 180px;
   height: 30px;
   margin: 0px auto 0px auto;
   padding: 0px;
-  border: 1px solid gray;
+
 
   vertical-align: middle;
   text-align: left;
   font-size: 18pt;
+}
+.dropbutton {
+
+  background-color: white;
+
+  width: 180px;
+  height: 30px;
+  margin: 0px;
+  padding: 0px;
+
+
 }
 
 button {

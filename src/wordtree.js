@@ -1,33 +1,25 @@
+//naked instantiations of new PrefixTrees must take no argument.
 var PrefixTree = function(word){
   if(word === undefined){
     this.value = '';
   }else{
     this.value = word;
   }
-  this.children = [];
+  this.children = {};
+  //this.children = [];
   this.isWord = false;
 
   this.add = function(word){
     var add = function(word, tree){
-      var hasChild = false;
-      var pos;
-      for(var i = 0; i < tree.children.length; i++){
-        if(tree.children[i].value === word){
-          hasChild = true;
-          pos = i;
-        }
+      if(!(word in tree.children)){
+        tree.children[word] = new PrefixTree(word);
       }
-      if(!hasChild){
-        tree.children.push(new PrefixTree(word));
-        pos = tree.children.length - 1;
-      }
-      return pos;
     };
-    //
     var tree = this;
-    for(var j = 0; j < word.length; j++){
-      tree = tree.children[add(word.slice(0,j+1), tree)];
-      if(j === word.length - 1){
+    for(var i = 0; i < word.length; i++){
+      add(word.slice(0, i+1), tree);
+      var tree = tree.children[word.slice(0, i+1)];
+      if(i === word.length - 1){
         tree.isWord = true;
       }
     }
@@ -39,77 +31,37 @@ var PrefixTree = function(word){
     }
   };
 
-  this.hasWord = function(word){
+  this.getNode = function(word){
+
     var search = function(word, tree){
-      for(var i = 0; i < tree.children.length; i++){
-        if(tree.children[i].value === word){
-          return i;
-        }
-      }
-      return false;
+      return word in tree.children;
     };
-    //
+
     var tree = this;
-    for(var j = 0; j < word.length; j++){
-      tree = tree.children[search(word.slice(0,j+1), tree)];
-      if(!tree){return false;}
+    if(tree.value === word){
+      return tree;
     }
-    return tree.isWord;
+
+    for(var i = 0; i < word.length; i++){
+      if(!search(word.slice(0, i+1), tree)){
+        return undefined;
+      }else{
+        tree = tree.children[word.slice(0, i+1)];
+      }
+    }
+    return tree;
   };
 
   this.hasNode = function(word){
-    var search = function(word, tree){
-      for(var i = 0; i < tree.children.length; i++){
-        if(tree.children[i].value === word){
-          return i;
-        }
-      }
-      return false;
-    };
-    //
-    var tree = this;
-    for(var j = 0; j < word.length; j++){
-      tree = tree.children[search(word.slice(0,j+1), tree)];
-      if(!tree){return false;}
-    }
-    return true;
+    var node = this.getNode(word);
+    return node !== undefined;
   };
 
-  this.allWordsBelow = function(word){
-    var node = this._getNode(word);
-    var words = [];
-    var AddAllWords = function(node, arr){
-      if(node !== 'no node'){
-        //'no node' is the result for nod e in ._getNode if no such node
-        if(node.isWord){
-          arr.push(node.value);
-        }
-        for(var i = 0; i < node.children.length; i++){
-          AddAllWords(node.children[i], arr);
-        }
-      }
-    };
-    AddAllWords(node, words);
-    return words;
-  };
-
-  //closure functions below
-  this._getNode = function(word){
-    var search = function(word, tree){
-      for(var i = 0; i < tree.children.length; i++){
-        if(tree.children[i].value === word){
-          return i;
-        }
-      }
-      return false;
-    };
-    //
-    var tree = this;
-    for(var j = 0; j < word.length; j++){
-      tree = tree.children[search(word.slice(0,j+1), tree)];
-      if(!tree){return 'no node';}
+  this.hasWord = function(word){
+    var node = this.getNode(word);
+    if(node !== undefined){
+      return node.isWord;
     }
-    return tree;
   };
 };
 
@@ -119,15 +71,17 @@ var scrabbleTree = function(word, tree){
   var chArray = word.split('');
   var checkTree = function(word, arr, tree, container){
     count++;
-    //console.log('checking the word: ' + word);
+    console.log('checking the word: ' + word + ' in: *' + tree.value);
     if(tree.hasNode(word)){
-      if(tree.hasWord(word) && container.indexOf(word) === -1){
+      //var node = tree.getNode(word);
+      if(tree.hasWord(word)){
         container.push(word);
       }
       for(var i = 0; i < arr.length; i++){
         var newArr = arr.slice();
         var newWord = word + newArr.splice(i, 1);
-        checkTree(newWord, newArr, tree);
+        //optimization needed
+        checkTree(newWord, newArr, tree, container);
       }
     }
   };
@@ -138,10 +92,18 @@ var scrabbleTree = function(word, tree){
 
 var autoFill = function(word, maxLength, tree){
   var nextWords = [];
-  var getWords = function(word, maxLength, tree, container){
+  if(tree.hasWord(word)){
+    nextWords.push(word);
+  }
+  var getNextWords = function(word, maxLength, tree, container){
     if(word.length < maxLength){
-      var node = tree._getNode(word);
-      if(node !== 'no node'){
+      if(tree !== undefined){
+        for(var key in tree.children){
+          if(tree.children[key].isWord){
+            container.push(key);
+          }
+          getNextWords(key, maxLength, tree.children[key], container);
+        }/*
         for(var i = 0; i < node.children.length; i++){
           var wordTree = node.children[i];
           console.log(wordTree);
@@ -149,18 +111,13 @@ var autoFill = function(word, maxLength, tree){
             nextWords.push(wordTree.value);
           }
           getWords(wordTree.value, maxLength, tree, container);
-        }
+        }*/
       }
     }
   };
-  getWords(word, maxLength, tree, nextWords);
+  getNextWords(word, maxLength, tree.getNode(word), nextWords);
   return nextWords;
 };
 
-
-//'root'
-
-//''
-//'r' - children of '';
-// 'ro' - children of 'r' node;
-// 'root'
+var treey = new PrefixTree();
+treey.add('hi');

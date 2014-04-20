@@ -25,15 +25,18 @@
       var word = $('input.autofill').val();
       var result = autoFill(word, word.length + 3, words).join(', ');
       console.log(result);
-      var warning = '<!--Still in contruction--!>'
+      var warning = '<!--Still in contruction--!>';
       $('textarea.autofill').val(result);
       $('input.scrabble').val('');
-    });*/
+    });
     $('button.autofill').on('click', function(){
       var word = $('input.autofill').val();
       var fillWords = autoFill(word, word.length + 3, words);
       for(var i = 0; i < fillWords.length; i++){
-        $('.dropdown').append('<li>' + fillWords[i] + '</li>')
+        var el = '<li><button class="dropbutton">' + fillWords[i] + '</button></li>';
+        console.log(el);
+        $('.dropdown').append(el);
+        $('.dropdown').show();
       }
     });
 
@@ -42,9 +45,19 @@
         $('button.scrabble').trigger('click');
       }
     });
-    $('input.autofill').on('keypress', function(event){
-      if(event.keyCode === 13){
-        $('button.autofill').trigger('click');
+    $('input.scrabble').on('keyup change', function(event){
+      $('.dropdown').hide();
+      $('.dropdown').html('');
+      var word = $('input.scrabble').val();
+      if(word.length > 3){
+        var fillWords = autoFill(word, word.length + 3, words);
+        if(fillWords.length > 0){
+          for(var i = 0; i < fillWords.length; i++){
+            var el = '<li><button class="dropbutton">' + fillWords[i] + '</button></li>';
+            $('.dropdown').append(el);
+            $('.dropdown').show(150);
+          }
+        }
       }
     });
   });
@@ -68,8 +81,11 @@
         <br>
       </div>
       <textarea class='scrabble'></textarea>
+      <ul class='dropdown'>
+      </ul>
+
     </section>
-    
+
     <section class='autofill'>
       <div class='title'>
         <h2>Autofill</h2>
@@ -80,10 +96,6 @@
         <br>
       </div>
       <textarea class='autofill'></textarea>
-      <ul class='dropdown'>
-        <li>Hello!</li>
-        <li>Heyyo!</li>
-      </ul>
     </section>
 
   </main>
