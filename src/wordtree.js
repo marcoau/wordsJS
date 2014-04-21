@@ -71,7 +71,7 @@ var scrabbleTree = function(word, trie){
   var checkTree = function(word, arr, trie, container){
     count++;
     if(trie.hasNode(word)){
-      if(word.length > 1 && trie.hasWord(word)){
+      if(word.length > 1 && container.indexOf(word) === -1 && trie.hasWord(word)){
         container.push(word);
       }
       for(var i = 0; i < arr.length; i++){
