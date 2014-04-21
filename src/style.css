@@ -132,11 +132,13 @@ textarea{
   z-index: 100;
 
   color: white;
-  font-size: 200px;
 }
 
+.loading h1{
+  font-size: 200px;
+}
 .loading p{
-  opacity: 1;
+  font-size: 70px;
 }
 
 /*Format of text*/
