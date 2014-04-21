@@ -22,6 +22,7 @@
 
     $('button.scrabble').on('click', function(){
       var word = $('input.scrabble').val();
+      $('textarea.scrabble').val('Loading...');
       var result = scrabbleTree(word, words).join(', ');
       $('textarea.scrabble').val(result);
       $('input.scrabble').val('');
