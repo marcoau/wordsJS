@@ -8,16 +8,16 @@ var Trie = function(word){
   this.children = {};
   this.isWord = false;
 
-  this.add = function(word){
+  this.addWord = function(word){
     var add = function(word, trie){
-      if(!(word in trie.children)){
-        trie.children[word] = new Trie(word);
+      if(trie && !(('_' + word) in trie.children)){
+        trie.children['_' + word] = new Trie(word);
       }
     };
     var trie = this;
     for(var i = 0; i < word.length; i++){
       add(word.slice(0, i+1), trie);
-      var trie = trie.children[word.slice(0, i+1)];
+      var trie = trie.children['_' + word.slice(0, i+1)];
       if(i === word.length - 1){
         trie.isWord = true;
       }
@@ -26,7 +26,7 @@ var Trie = function(word){
 
   this.addList = function(arr){
     for(var i = 0; i < arr.length; i++){
-      this.add(arr[i]);
+      this.addWord(arr[i]);
     }
   };
 
@@ -37,8 +37,7 @@ var Trie = function(word){
       return undefined;
     }
     var search = function(word, trie){
-      console.log(word + 'is in' + trie.value + '?');
-      return word in trie.children;
+      return ('_' + word) in trie.children;
     };
     var trie = this;
 
@@ -46,7 +45,7 @@ var Trie = function(word){
       if(!search(word.slice(0, i+1), trie)){
         return undefined;
       }else{
-        trie = trie.children[word.slice(0, i+1)];
+        trie = trie.children['_' + word.slice(0, i+1)];
       }
     }
     return trie;
@@ -84,7 +83,6 @@ var scrabbleTree = function(word, trie){
     }
   };
   checkTree('', chArray, trie, goodWords);
-  console.log(count);
   return goodWords;
 };
 
@@ -108,3 +106,60 @@ var autoFill = function(word, maxLength, trie){
   getNextWords(word, maxLength, trie.getNode(word), nextWords);
   return nextWords;
 };
+
+$.extend(Object.prototype, {
+  addWord: function(word){
+    var add = function(word, trie){
+      if(!(('_' + word) in trie.children)){
+        trie.children['_' + word] = new Trie(word);
+      }
+    };
+    var trie = this;
+    for(var i = 0; i < word.length; i++){
+      add(word.slice(0, i+1), trie);
+      var trie = trie.children['_' + word.slice(0, i+1)];
+      if(i === word.length - 1){
+        trie.isWord = true;
+      }
+    }
+  },
+
+  addList: function(arr){
+    for(var i = 0; i < arr.length; i++){
+      this.addWord(arr[i]);
+    }
+  },
+
+  getNode: function(word){
+    var pos = this.value.length;
+    //word shorter than/equal to length of node.value, but not equal
+    if(word.length <= pos && this.value !== word){
+      return undefined;
+    }
+    var search = function(word, trie){
+      return '_' + word in trie.children;
+    };
+    var trie = this;
+
+    for(var i = pos; i < word.length; i++){
+      if(!search(word.slice(0, i+1), trie)){
+        return undefined;
+      }else{
+        trie = trie.children['_' + word.slice(0, i+1)];
+      }
+    }
+    return trie;
+  },
+
+  hasNode: function(word){
+    var node = this.getNode(word);
+    return node !== undefined;
+  },
+
+  hasWord: function(word){
+    var node = this.getNode(word);
+    if(node !== undefined){
+      return node.isWord;
+    }
+  }}
+);

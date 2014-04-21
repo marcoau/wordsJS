@@ -5,20 +5,21 @@
 <link href='src/style.css' rel='stylesheet'>
 <script src='lib/jquery-1.11.0.min.js'></script>
 <script src='src/wordtree.js'></script>
-<!--<script src='src/lang/english.js'></script>-->
-<script src='src/lang/words_testing.js'></script>
+<script src='src/lang/english.js'></script>
+<!--<script src='src/lang/words_testing.js'></script>-->
 <script>
 
-  var words = new Trie();
-  words.addList(wordList);
-
   $(document).ready(function(){
+
+
+    var words = new Trie();
+    words.addList(wordList);
+    $('.loading').hide();
 
     $('button.scrabble').on('click', function(){
       var word = $('input.scrabble').val();
       var result = scrabbleTree(word, words).join(', ');
       $('textarea.scrabble').val(result);
-      console.log(result);
       $('input.scrabble').val('');
     });
     $('button.autofill').on('click', function(){
@@ -51,26 +52,31 @@
       var word = $('input.scrabble').val();
       if(word.length > 3){
         var fillWords = autoFill(word, word.length + 3, words);
+        console.log('still ok');
         if(fillWords.length > 0){
           for(var i = 0; i < fillWords.length; i++){
             var el = '<li><button class="dropbutton">' + fillWords[i] + '</button></li>';
-            $('.dropdown').append(el);
-            $('.dropdown').show(150);
+            console.log(el);
+            $('.dropdown').append($(el));
           }
         }
       }
+      console.log($('.dropdown'));
+      $('.dropdown').show();
     });
   });
 </script>
 </head>
 
 <body>
+  <div class='loading'>
+    <p>Loading...</p>
+  </div>
   <header>
     <h1>WordsJS</h1>
     <div class='signature'>@marc0au</div>
   </header>
   <main class='functions'>
-
     <section class='scrabble'>
       <div class='title'>
         <h2>Cheat in Scrabble!</h2>
